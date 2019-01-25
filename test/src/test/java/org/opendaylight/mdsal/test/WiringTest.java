@@ -14,6 +14,8 @@ import org.opendaylight.infrautils.inject.guice.GuiceClassPathBinder;
 import org.opendaylight.infrautils.inject.guice.testutils.AnnotationsModule;
 import org.opendaylight.infrautils.inject.guice.testutils.GuiceRule;
 import org.opendaylight.mdsal.binding.api.DataBroker;
+import org.opendaylight.mdsal.wiring.InMemoryModule;
+import org.opendaylight.mdsal.wiring.MdsalModule;
 
 /**
  * Tests all the "Wiring classes in mdsal.
@@ -24,7 +26,8 @@ public class WiringTest {
 
     private static final GuiceClassPathBinder CLASS_PATH_BINDER = new GuiceClassPathBinder("org.opendaylight.mdsal");
 
-    public @Rule GuiceRule guice = new GuiceRule(new InMemoryMdsalModule(CLASS_PATH_BINDER), new AnnotationsModule());
+    public @Rule GuiceRule guice = new GuiceRule(new InMemoryModule(), new MdsalModule(CLASS_PATH_BINDER),
+            new AnnotationsModule());
 
     @Inject DataBroker dataBroker;
 
